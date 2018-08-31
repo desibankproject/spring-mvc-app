@@ -16,6 +16,17 @@
 	 -->
 	<context:component-scan base-package="com.indigo.dao"/>
 	
+		<!-- Define transaction manager as bean -->
+		<bean id="transactionManager"
+			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+						<property name="dataSource" ref="sqldataSource" />
+		</bean>
+	
+	<!-- Enable Annotation based Declarative Transaction Management //@Trasactional	-->
+		
+		<tx:annotation-driven proxy-target-class="true"
+				transaction-manager="transactionManager" />
+	
 		<!-- 
 		We should create bean of the class which contains business logic
 		not for normal class like pojo

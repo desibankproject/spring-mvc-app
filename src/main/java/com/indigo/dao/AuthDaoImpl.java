@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.indigo.dao.entity.CustomerEntity;
 import com.indigo.dao.entity.LoginEntity;
@@ -78,12 +80,23 @@ public class AuthDaoImpl implements AuthDao {
 	 * @return
 	 */
 	@Override
+	@Transactional
 	public String saveCustomer(CustomerEntity entity){
 		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
+		boolean b=TransactionSynchronizationManager.isActualTransactionActive();
+		if(b){
+			System.out.println("heeeyeyeyeyey transaction is here");
+		}else{
+			System.out.println("heeeyeyeyeyey transaction is not here");
+		}
 		String sql="insert into customers_tbl(username,password,email,role,gender,photo,doe) values(?,?,?,?,?,?,?)";
 		Timestamp doe=new Timestamp(new Date().getTime());
-		Object data[]=new Object[]{entity.getUsername(), entity.getPassword(),entity.getEmail(),entity.getRole(),entity.getGender(),entity.getPhoto(),doe};
-		jdbcTemplate.update(sql,data);
+		Object data1[]=new Object[]{entity.getUsername()+"A", entity.getPassword(),entity.getEmail(),entity.getRole(),entity.getGender(),entity.getPhoto(),doe};
+		jdbcTemplate.update(sql,data1);
+		Object data2[]=new Object[]{entity.getUsername()+"B", entity.getPassword(),entity.getEmail(),entity.getRole(),entity.getGender(),entity.getPhoto(),doe};
+		jdbcTemplate.update(sql,data2);
+		Object data3[]=new Object[]{entity.getUsername()+"C", entity.getPassword(),entity.getEmail(),entity.getRole(),entity.getGender(),entity.getPhoto(),doe};
+		jdbcTemplate.update(sql,data3);
 		return "success";
 	}
 
