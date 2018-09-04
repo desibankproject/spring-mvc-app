@@ -1,5 +1,6 @@
 package com.spring.web.mvc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -54,9 +55,31 @@ public class LoginController {
 		return "customers";
 	}
 	
+	
+	@GetMapping("/search-customers")
+	public String searchCustomers(@RequestParam(value="searchstring",required=false) String searchstring,Model model) {
+		List<CustomerEntity> customerList=new ArrayList<>();
+		customerList=authDao.searchCustomerByCriteria(searchstring);
+		model.addAttribute("customerList", customerList);
+		return "customers";
+	}
+	
+	/**
+	 * 
+	 * @param role 
+	 * this role value would come from client
+	 * required=false = means this value is optional
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/customers")
-	public String showCustomer(Model model) {
-		List<CustomerEntity> customerList=authDao.findCustomer();
+	public String showCustomer(@RequestParam(value="oowowow",required=false) String role,Model model) {
+		List<CustomerEntity> customerList=new ArrayList<>();
+		if(role==null || role.equalsIgnoreCase("All")){
+			customerList=authDao.findCustomer();
+		}else{
+			customerList=authDao.findCustomerByRole(role);
+		}
 		model.addAttribute("customerList", customerList);
 		return "customers";
 	}
@@ -66,9 +89,9 @@ public class LoginController {
 		System.out.println("registerUserPost is called");
 		System.out.println(customerEntity);
 		authDao.saveCustomer(customerEntity);
-		model.addAttribute("message", "Customer is registered into the database successfully!");
-		//	request.setAttribute("message", "
-		return "customer-register";
+		//List<CustomerEntity> customerList=authDao.findCustomer();
+		//model.addAttribute("customerList", customerList);
+		return "redirect:/customers?message=Customer is registered into the database successfully!";
 	}
 	
 	@GetMapping("/register")

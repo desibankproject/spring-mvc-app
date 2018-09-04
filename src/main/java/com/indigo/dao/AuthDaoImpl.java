@@ -74,6 +74,35 @@ public class AuthDaoImpl implements AuthDao {
 		return customerEntities;
 	}
 	
+	
+	/**
+	 * Code as per spring jdbc
+	 * @param entity
+	 * @return
+	 */
+	@Override
+	public List<CustomerEntity> searchCustomerByCriteria(String searchString){
+		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
+		String sql="select * from customers_tbl where username=? or password=? or email=?";
+		Timestamp doe=new Timestamp(new Date().getTime());
+		List<CustomerEntity> customerEntities=jdbcTemplate.query(sql,new Object[]{searchString,searchString,searchString},new BeanPropertyRowMapper(CustomerEntity.class));
+		return customerEntities;
+	}
+	
+	/**
+	 * Code as per spring jdbc
+	 * @param entity
+	 * @return
+	 */
+	@Override
+	public List<CustomerEntity> findCustomerByRole(String role){
+		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
+		String sql="select * from customers_tbl where role=?";
+		Timestamp doe=new Timestamp(new Date().getTime());
+		List<CustomerEntity> customerEntities=jdbcTemplate.query(sql,new Object[]{role},new BeanPropertyRowMapper(CustomerEntity.class));
+		return customerEntities;
+	}
+	
 	/**
 	 * Code as per spring jdbc
 	 * @param entity
