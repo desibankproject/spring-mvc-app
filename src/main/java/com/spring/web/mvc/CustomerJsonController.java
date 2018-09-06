@@ -10,11 +10,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.indigo.dao.AuthDao;
 import com.indigo.dao.entity.CustomerEntity;
+import com.spring.web.mvc.vo.ApplicationResponseVO;
 import com.spring.web.mvc.vo.Dog;
 
 @Controller
@@ -25,6 +28,27 @@ private AuthDao authDao;
 	public void  onlyOnce(){
 		ApplicationContext applicationContext=new ClassPathXmlApplicationContext("auth-dao.xml");
 	    authDao=(AuthDao)applicationContext.getBean("AuthDaoImpl");
+	}
+	
+	//Since data from AJAX is coming as form so we can use @ModelAttribute
+	@PostMapping("/ajax-add-csutomer")
+	 @ResponseBody	public ApplicationResponseVO registerUserPost(@ModelAttribute CustomerEntity customerEntity,Model model) {
+		authDao.saveCustomer(customerEntity);
+		ApplicationResponseVO applicationResponseVO=new ApplicationResponseVO();
+		applicationResponseVO.setStatus("success");
+		applicationResponseVO.setMessage("Hey you have registered successfully!");
+		return applicationResponseVO;
+	}
+	
+	
+	
+	@GetMapping("/jdelete-customers")
+	@ResponseBody public ApplicationResponseVO jdeleteCustomer(@RequestParam(value="username",required=false) String username,Model model) {
+		authDao.deleteCustomer(username);
+		ApplicationResponseVO applicationResponseVO=new ApplicationResponseVO();
+		applicationResponseVO.setStatus("success");
+		applicationResponseVO.setMessage("Hey customer is delete successfully! whose username is "+username);
+		return applicationResponseVO;
 	}
 	
 	

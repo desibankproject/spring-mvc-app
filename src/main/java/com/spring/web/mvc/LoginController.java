@@ -27,15 +27,11 @@ public class LoginController {
 	private AuthDao authDao;
 	
 	
-	
-	
 	@PostConstruct
 	public void  onlyOnce(){
 		ApplicationContext applicationContext=new ClassPathXmlApplicationContext("auth-dao.xml");
 	    authDao=(AuthDao)applicationContext.getBean("AuthDaoImpl");
 	}
-	
-	
 	
 	
 	@GetMapping("/checkUsername")
