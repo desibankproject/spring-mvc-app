@@ -3,7 +3,10 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
+	
 	<display-name>qweqw</display-name>
+	
+	
 	<welcome-file-list>
 		<welcome-file>login.jsp</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -12,6 +15,25 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<!-- 
+	ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationContext.xml");
+		authService=(AuthService)applicationContext.getBean("AuthServiceImpl");
+	ContextLoaderListener is given by spring web module
+	
+	below listener will create spring container which is called Spring Root Web Container
+	which will manage dao layer, datasource , service layer etc beans
+		classpath means it is inside src/main/resources
+	 -->
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>	
+	</context-param>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 	
 	<!-- Configure dispatcher servlet -->
    <servlet>

@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -17,23 +19,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.indigo.dao.AuthDao;
 import com.indigo.dao.entity.CustomerEntity;
+import com.indigo.service.AuthService;
 import com.spring.web.mvc.vo.ApplicationResponseVO;
+import com.spring.web.mvc.vo.CustomerVO;
 import com.spring.web.mvc.vo.Dog;
 
 @Controller
 public class CustomerJsonController {
-private AuthDao authDao;
 	
-	@PostConstruct
+	@Autowired
+	@Qualifier("AuthServiceImpl")
+	private AuthService authService;
+	
+	/*@PostConstruct
 	public void  onlyOnce(){
-		ApplicationContext applicationContext=new ClassPathXmlApplicationContext("auth-dao.xml");
-	    authDao=(AuthDao)applicationContext.getBean("AuthDaoImpl");
-	}
+		ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationContext.xml");
+		authService=(AuthService)applicationContext.getBean("AuthServiceImpl");
+	}*/
 	
 	//Since data from AJAX is coming as form so we can use @ModelAttribute
 	@PostMapping("/ajax-add-csutomer")
-	 @ResponseBody	public ApplicationResponseVO registerUserPost(@ModelAttribute CustomerEntity customerEntity,Model model) {
-		authDao.saveCustomer(customerEntity);
+	 @ResponseBody	public ApplicationResponseVO registerUserPost(@ModelAttribute CustomerVO customerVO,Model model) {
+		authService.saveCustomer(customerVO);
 		ApplicationResponseVO applicationResponseVO=new ApplicationResponseVO();
 		applicationResponseVO.setStatus("success");
 		applicationResponseVO.setMessage("Hey you have registered successfully!");
@@ -44,7 +51,7 @@ private AuthDao authDao;
 	
 	@GetMapping("/jdelete-customers")
 	@ResponseBody public ApplicationResponseVO jdeleteCustomer(@RequestParam(value="username",required=false) String username,Model model) {
-		authDao.deleteCustomer(username);
+		authService.deleteCustomer(username);
 		ApplicationResponseVO applicationResponseVO=new ApplicationResponseVO();
 		applicationResponseVO.setStatus("success");
 		applicationResponseVO.setMessage("Hey customer is delete successfully! whose username is "+username);
@@ -53,9 +60,9 @@ private AuthDao authDao;
 	
 	
 	@GetMapping("/jsearch-customers")
-	@ResponseBody public List<CustomerEntity> searchCustomers(@RequestParam(value="searchstring",required=false) String searchstring,Model model) {
-		List<CustomerEntity> customerList=new ArrayList<>();
-		customerList=authDao.searchCustomerByCriteria(searchstring);
+	@ResponseBody public List<CustomerVO> searchCustomers(@RequestParam(value="searchstring",required=false) String searchstring,Model model) {
+		List<CustomerVO> customerList=new ArrayList<>();
+		customerList=authService.searchCustomerByCriteria(searchstring);
 		return customerList;
 	}
 	
@@ -108,12 +115,12 @@ private AuthDao authDao;
 	 * @return
 	 */
 	@GetMapping("/customers-json")
-	@ResponseBody public List<CustomerEntity> showCustomer(@RequestParam(value="oowowow",required=false) String role,Model model) {
-		List<CustomerEntity> customerList=new ArrayList<>();
+	@ResponseBody public List<CustomerVO> showCustomer(@RequestParam(value="oowowow",required=false) String role,Model model) {
+		List<CustomerVO> customerList=new ArrayList<>();
 		if(role==null || role.equalsIgnoreCase("All")){
-			customerList=authDao.findCustomer();
+			customerList=authService.findCustomer();
 		}else{
-			customerList=authDao.findCustomerByRole(role);
+			customerList=authService.findCustomerByRole(role);
 		}
 		return customerList; //return java object instead of string
 	}

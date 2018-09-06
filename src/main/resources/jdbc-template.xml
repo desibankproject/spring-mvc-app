@@ -9,13 +9,10 @@
 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
 	http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
-	
-	<!-- Scanning the package for annotation
-		so that bean can be created by spring container
-		by reading the information associated with the annotation
+		<!-- 
+	JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
 	 -->
-	
-	<context:component-scan base-package="com.indigo.dao"/>
-	
-</beans>	
-	
+	 <bean id="mjdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" scope="singleton">
+	 		<property name="dataSource" ref="sqldataSource"/>	 
+	 </bean>
+</beans>	 

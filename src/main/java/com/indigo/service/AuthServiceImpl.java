@@ -3,11 +3,9 @@ package com.indigo.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,13 +20,9 @@ import com.spring.web.mvc.vo.LoginVO;
 public class AuthServiceImpl implements AuthService {
 	
 	
+	@Autowired
+	@Qualifier("AuthDaoImpl")
 	private AuthDao authDao;
-	
-	@PostConstruct
-	public void  onlyOnce(){
-		ApplicationContext applicationContext=new ClassPathXmlApplicationContext("auth-dao.xml");
-	    authDao=(AuthDao)applicationContext.getBean("AuthDaoImpl");
-	}
 	
 	/**
 	 * Code as per spring jdbc

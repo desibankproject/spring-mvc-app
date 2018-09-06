@@ -14,8 +14,7 @@
 		so that bean can be created by spring container
 		by reading the information associated with the annotation
 	 -->
-	
-	<context:component-scan base-package="com.indigo.dao"/>
+	 <context:component-scan base-package="com.indigo.service"/>
 	
 </beans>	
 	
