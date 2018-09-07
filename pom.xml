@@ -102,20 +102,28 @@
 			<version>2.9.0</version>
 		</dependency>
 		<!-- end of the JSON libarry -->
-		
-		                    <!-- Using AOP with aspectJ -->
-                   <dependency>
-                             <groupId>org.aspectj</groupId>
-                             <artifactId>aspectjrt</artifactId>
-                             <version>1.6.11</version>
-                   </dependency>
- 
-                   <dependency>
-                             <groupId>org.aspectj</groupId>
-                             <artifactId>aspectjweaver</artifactId>
-                             <version>1.6.11</version>
-                   </dependency>
-			
+
+	<!-- Using AOP with aspectJ -->
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjrt</artifactId>
+		<version>1.6.11</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.aspectj</groupId>
+		<artifactId>aspectjweaver</artifactId>
+		<version>1.6.11</version>
+	</dependency>
+	
+	
+	 <!-- JAX-WS This dependency for METRO framework which is used to develop 
+			soap based web service -->
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId> 
+			<version>2.2.5</version>
+		</dependency>
     
     
   </dependencies>

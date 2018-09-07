@@ -1,6 +1,6 @@
 package com.spring.web.mvc.vo;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class CustomerVO {
 	private String username;
@@ -10,7 +10,7 @@ public class CustomerVO {
 	private String operation; 
 	private String email;
 	private String photo;
-	private Timestamp doe;
+	private Date doe;
 	
 
 	public String getOperation() {
@@ -69,11 +69,11 @@ public class CustomerVO {
 		this.photo = photo;
 	}
 
-	public Timestamp getDoe() {
+	public Date getDoe() {
 		return doe;
 	}
 
-	public void setDoe(Timestamp doe) {
+	public void setDoe(Date doe) {
 		this.doe = doe;
 	}
 

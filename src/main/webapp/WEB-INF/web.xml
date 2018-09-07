@@ -49,5 +49,21 @@
 	</servlet-mapping>
 	
 	
+	   <!-- 
+	WSServlet will forward your request to soap web service container
+	against requested url-pattern weatherSoapProvider
+	 -->
+	<servlet>
+        <servlet-name>metro</servlet-name>
+        <servlet-class>
+          com.sun.xml.ws.transport.http.servlet.WSServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+	
+	<servlet-mapping>
+	    <servlet-name>metro</servlet-name>
+		<url-pattern>/customerWebService</url-pattern>
+	</servlet-mapping>
 	
 </web-app>
