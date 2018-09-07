@@ -112,6 +112,24 @@ public class AuthServiceImpl implements AuthService {
 		String result=authDao.saveCustomer(entity);
 		return result;
 	}
+	
+	@Override
+	@Transactional
+	public String updateCustomer(CustomerVO customerVO){
+		CustomerEntity entity=new CustomerEntity();
+		BeanUtils.copyProperties(customerVO, entity);
+		String result=authDao.updateCustomer(entity);
+		return result;
+	}
+	
+	
+	@Override
+	public CustomerVO findCustomerByUsername(String username){
+		CustomerEntity customerEntity=authDao.findCustomerByUsername(username);
+		CustomerVO customerVO=new CustomerVO();
+		BeanUtils.copyProperties(customerEntity, customerVO);
+		return customerVO;
+	}
 
 	/**
 	 * Code as per spring jdbc

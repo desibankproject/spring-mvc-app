@@ -109,6 +109,19 @@ public class AuthDaoImpl implements AuthDao {
 	 * @return
 	 */
 	@Override
+	public CustomerEntity findCustomerByUsername(String username){
+		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
+		String sql="select * from customers_tbl where username=?";
+		CustomerEntity customerEntity=(CustomerEntity)jdbcTemplate.queryForObject(sql,new Object[]{username},new BeanPropertyRowMapper(CustomerEntity.class));
+		return customerEntity;
+	}
+	
+	/**
+	 * Code as per spring jdbc
+	 * @param entity
+	 * @return
+	 */
+	@Override
 	@Transactional
 	public String saveCustomer(CustomerEntity entity){
 		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
@@ -128,6 +141,28 @@ public class AuthDaoImpl implements AuthDao {
 		jdbcTemplate.update(sql,data3);
 		return "success";
 	}
+	
+	
+	/**
+	 * Code as per spring jdbc
+	 * @param entity
+	 * @return
+	 */
+	@Override
+	@Transactional
+	public String updateCustomer(CustomerEntity entity){
+		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
+		boolean b=TransactionSynchronizationManager.isActualTransactionActive();
+		if(b){
+			System.out.println("heeeyeyeyeyey transaction is here");
+		}else{
+			System.out.println("heeeyeyeyeyey transaction is not here");
+		}
+		String sql="update customers_tbl set password=?,email=?,role=?,gender=?,photo=? where username=?";
+		Object data1[]=new Object[]{entity.getPassword(),entity.getEmail(),entity.getRole(),entity.getGender(),entity.getPhoto(),entity.getUsername()};
+		jdbcTemplate.update(sql,data1);
+		return "success";
+	}
 
 	/**
 	 * Code as per spring jdbc
@@ -142,6 +177,7 @@ public class AuthDaoImpl implements AuthDao {
 		try{
 			entity=(LoginEntity)jdbcTemplate.queryForObject(sql,new Object[]{username,password}, new BeanPropertyRowMapper(LoginEntity.class));
 		}catch(Exception exception){
+			exception.printStackTrace();	
 			 entity=new LoginEntity();
 			
 		}

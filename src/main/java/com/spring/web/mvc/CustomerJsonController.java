@@ -40,13 +40,28 @@ public class CustomerJsonController {
 	//Since data from AJAX is coming as form so we can use @ModelAttribute
 	@PostMapping("/ajax-add-csutomer")
 	 @ResponseBody	public ApplicationResponseVO registerUserPost(@ModelAttribute CustomerVO customerVO,Model model) {
-		authService.saveCustomer(customerVO);
 		ApplicationResponseVO applicationResponseVO=new ApplicationResponseVO();
 		applicationResponseVO.setStatus("success");
-		applicationResponseVO.setMessage("Hey you have registered successfully!");
+		if(customerVO.getOperation().equals("add")){
+			authService.saveCustomer(customerVO);
+			applicationResponseVO.setMessage("Hey you have registered successfully!");
+		}else if(customerVO.getOperation().equals("edit")){
+			authService.updateCustomer(customerVO);
+			applicationResponseVO.setMessage("Hey your reacord is updated successfully!");
+		}
+		
+		
+		
 		return applicationResponseVO;
 	}
 	
+	
+			
+	@GetMapping("/fecth-customer-by-username")
+	@ResponseBody public CustomerVO loadCustomerByUsername(@RequestParam(value="username",required=false) String username,Model model) {
+		CustomerVO customerVO=authService.findCustomerByUsername(username);
+		return  customerVO;
+	}			
 	
 	
 	@GetMapping("/jdelete-customers")

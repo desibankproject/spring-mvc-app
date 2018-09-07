@@ -7,9 +7,19 @@ public class CustomerVO {
 	private String password;
 	private String role;
 	private String gender;
+	private String operation; 
 	private String email;
 	private String photo;
 	private Timestamp doe;
+	
+
+	public String getOperation() {
+		return operation;
+	}
+
+	public void setOperation(String operation) {
+		this.operation = operation;
+	}
 
 	public String getUsername() {
 		return username;

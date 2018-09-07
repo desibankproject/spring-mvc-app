@@ -49,6 +49,8 @@
 				<td>
 				<button type="submit" class="btn btn-danger">Check User</button> &nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/register"><button type="button" class="btn btn-primary">Sign Up</button></a>
 				&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/customers"><button type="button" class="btn btn-warning">Show Customers</button></a>
+				&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/customers-search.jsp"><button type="button" class="btn btn-warning">Customer Search</button></a>
+				
 				</td>
 				<td></td>
 			</tr>

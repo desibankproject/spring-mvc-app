@@ -21,4 +21,8 @@ public interface AuthService {
 
 	LoginVO authUser(String username, String password);
 
+	CustomerVO findCustomerByUsername(String username);
+
+	String updateCustomer(CustomerVO customerVO);
+
 }

@@ -19,6 +19,11 @@ public interface AuthDao {
 
 	List<CustomerEntity> findCustomerByRole(String role);
 
+
+	CustomerEntity findCustomerByUsername(String username);
+
 	List<CustomerEntity> searchCustomerByCriteria(String searchString);
+
+	String updateCustomer(CustomerEntity entity);
 
 }

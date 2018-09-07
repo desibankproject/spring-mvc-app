@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.indigo.service.AuthService;
+import com.spring.web.mvc.vo.ApplicationResponseVO;
 import com.spring.web.mvc.vo.CustomerVO;
 import com.spring.web.mvc.vo.LoginVO;
 
@@ -38,6 +39,27 @@ public class LoginController {
 		authService=(AuthService)applicationContext.getBean("AuthServiceImpl");
 	}
 */	
+	
+	
+	@GetMapping("/search-customer-home")
+	 public String checkUsername() {
+		return "customers-search";
+	}
+	
+	@PostMapping("/ajax-validate-user")
+	@ResponseBody public ApplicationResponseVO checkUserAjax(@ModelAttribute LoginVO loginVO,Model model) {
+		LoginVO duser=authService.authUser(loginVO.getUsername(),loginVO.getPassword());
+		ApplicationResponseVO applicationResponseVO=new ApplicationResponseVO();
+		if(duser.getUsername()==null){
+			applicationResponseVO.setStatus("fail");
+			applicationResponseVO.setMessage("Hey your username and password are not valid ");
+		}else{
+			applicationResponseVO.setStatus("success");
+			applicationResponseVO.setMessage("Wow");	
+		}
+		return applicationResponseVO;
+	}
+	
 	
 	@GetMapping("/checkUsername")
 	@ResponseBody public String checkUsername(@RequestParam("purva") String purva,Model model) {
