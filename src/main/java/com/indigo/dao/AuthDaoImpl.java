@@ -35,6 +35,7 @@ public class AuthDaoImpl implements AuthDao {
 	 */
 	@Override
 	public String deleteCustomer(String username){
+		//System.out.println("This deleteCustomer is called at "+new Date());
 		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
 		String sql="delete  from customers_tbl where username=?";
 		int row=jdbcTemplate.update(sql,new Object[]{username});
