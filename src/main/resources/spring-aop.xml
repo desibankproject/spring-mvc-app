@@ -18,6 +18,7 @@
      -->
    <aop:aspectj-autoproxy proxy-target-class="false"/>
    
+   <!-- This the package in which we keep our advices -->
    <context:component-scan base-package="com.indigo.aop.advice"/>
    
   

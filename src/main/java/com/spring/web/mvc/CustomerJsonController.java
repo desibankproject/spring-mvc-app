@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,6 +37,19 @@ public class CustomerJsonController {
 		ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationContext.xml");
 		authService=(AuthService)applicationContext.getBean("AuthServiceImpl");
 	}*/
+	
+	
+	
+	
+	 @PostMapping("/ajax-add-csutomer-as-json")
+	 @ResponseBody	public ApplicationResponseVO registerUserPostJson(@RequestBody CustomerVO customerVO,Model model) {
+		ApplicationResponseVO applicationResponseVO=new ApplicationResponseVO();
+		applicationResponseVO.setStatus("success");
+		authService.saveCustomer(customerVO);
+		applicationResponseVO.setMessage("Hey you have registered successfully!");
+		return applicationResponseVO;
+	}
+	
 	
 	//Since data from AJAX is coming as form so we can use @ModelAttribute
 	@PostMapping("/ajax-add-csutomer")
