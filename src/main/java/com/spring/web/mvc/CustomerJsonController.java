@@ -38,9 +38,6 @@ public class CustomerJsonController {
 		authService=(AuthService)applicationContext.getBean("AuthServiceImpl");
 	}*/
 	
-	
-	
-	
 	 @PostMapping("/ajax-add-csutomer-as-json")
 	 @ResponseBody	public ApplicationResponseVO registerUserPostJson(@RequestBody CustomerVO customerVO,Model model) {
 		ApplicationResponseVO applicationResponseVO=new ApplicationResponseVO();

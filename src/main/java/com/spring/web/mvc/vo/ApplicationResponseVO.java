@@ -1,5 +1,8 @@
 package com.spring.web.mvc.vo;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class ApplicationResponseVO {
 	private String status;
 	private String message;
