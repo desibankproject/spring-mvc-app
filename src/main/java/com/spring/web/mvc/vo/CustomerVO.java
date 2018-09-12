@@ -11,6 +11,15 @@ public class CustomerVO {
 	private String email;
 	private String photo;
 	private Date doe;
+	private byte[] image;
+	
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 	
 
 	public String getOperation() {

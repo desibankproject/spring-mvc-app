@@ -106,10 +106,17 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	@Transactional
 	public String saveCustomer(CustomerVO customerVO){
-		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
 		CustomerEntity entity=new CustomerEntity();
 		BeanUtils.copyProperties(customerVO, entity);
 		String result=authDao.saveCustomer(entity);
+		return result;
+	}
+	
+	@Override
+	public String saveCustomerWithImage(CustomerVO customerVO){
+		CustomerEntity entity=new CustomerEntity();
+		BeanUtils.copyProperties(customerVO, entity);
+		String result=authDao.saveCustomerWithImage(entity);
 		return result;
 	}
 	

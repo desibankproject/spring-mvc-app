@@ -26,4 +26,6 @@ public interface AuthDao {
 
 	String updateCustomer(CustomerEntity entity);
 
+	String saveCustomerWithImage(CustomerEntity entity);
+
 }

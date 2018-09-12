@@ -1,6 +1,7 @@
 package com.indigo.dao;
 
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.support.SqlLobValue;
+import org.springframework.jdbc.support.lob.DefaultLobHandler;
+import org.springframework.jdbc.support.lob.LobHandler;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -142,6 +146,30 @@ public class AuthDaoImpl implements AuthDao {
 		jdbcTemplate.update(sql,data3);
 		return "success";
 	}
+	
+	/**
+	 * Code as per spring jdbc
+	 * @param entity
+	 * @return
+	 */
+	@Override
+	@Transactional
+	public String saveCustomerWithImage(CustomerEntity entity){
+		
+		//Special code for saving image into the database!
+        LobHandler lobHandler = new DefaultLobHandler();
+        SqlLobValue sqlLobValue=new SqlLobValue(entity.getImage(),lobHandler);
+		String sql="insert into customers_image_tbl(username,password,email,role,gender,photo,doe) values(?,?,?,?,?,?,?)";
+		Timestamp doe=new Timestamp(new Date().getTime());
+		Object data[]=new Object[]{entity.getUsername(), entity.getPassword(),entity.getEmail(),entity.getRole(),entity.getGender(),sqlLobValue,doe};
+        int[] dataType=new int[] { Types.VARCHAR, Types.VARCHAR,
+                Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
+                Types.BLOB,Types.TIMESTAMP };
+        //This is special code to persist image into database
+		jdbcTemplate.update(sql,data,dataType);
+		return "success";
+	}
+	
 	
 	
 	/**

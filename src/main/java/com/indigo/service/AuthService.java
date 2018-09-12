@@ -2,6 +2,7 @@ package com.indigo.service;
 
 import java.util.List;
 
+import com.indigo.dao.entity.CustomerEntity;
 import com.spring.web.mvc.vo.CustomerVO;
 import com.spring.web.mvc.vo.LoginVO;
 
@@ -24,5 +25,7 @@ public interface AuthService {
 	CustomerVO findCustomerByUsername(String username);
 
 	String updateCustomer(CustomerVO customerVO);
+
+	String saveCustomerWithImage(CustomerVO entity);
 
 }

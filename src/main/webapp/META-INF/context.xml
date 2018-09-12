@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context  docBase="spring-mvc-app" path="/spring-mvc-app">
+    <Resource name="jdbc/opdatasource" auth="Container"
+        type="javax.sql.DataSource" username="root" password="mysql@1234"
+        driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/cars_db"
+        maxActive="100" maxIdle="30" />
+</Context>

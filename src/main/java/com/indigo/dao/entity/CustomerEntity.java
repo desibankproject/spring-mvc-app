@@ -9,6 +9,16 @@ public class CustomerEntity {
 	private String gender;
 	private String email;
 	private String photo;
+	private byte[] image;
+	
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
 	private Timestamp doe;
 
 	public String getUsername() {
