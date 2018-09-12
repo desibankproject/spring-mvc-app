@@ -63,6 +63,24 @@ public class AuthServiceImpl implements AuthService {
 		return customerVOs;
 	}
 	
+	@Override
+	public List<CustomerVO> findCustomerWithImage(){
+		List<CustomerEntity> customerEntities=authDao.findCustomerWithImage();
+		//write code for conversion from List<CustomerEntity> into List<CustomerVO>
+		List<CustomerVO> customerVOs=new ArrayList<>();
+		for (CustomerEntity entity : customerEntities) {
+			CustomerVO customerVO=new CustomerVO();
+			BeanUtils.copyProperties(entity, customerVO);
+			customerVOs.add(customerVO);
+		}
+		return customerVOs;
+	}
+	
+	@Override
+	public byte[] loadImageByUsername(String username){
+		return authDao.loadImageByUsername(username);
+	}
+	
 	
 	/**
 	 * Code as per spring jdbc

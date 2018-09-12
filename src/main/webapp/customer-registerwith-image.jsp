@@ -87,7 +87,7 @@
 		@ BizService </header>
 	
 	<div class="container">
-	<img src="${pageContext.request.contextPath}/img/cust-registration.png" style="height: 100px;" />
+	<a href="${pageContext.request.contextPath}/customers-with-image"><img src="${pageContext.request.contextPath}/img/cust-registration.png" style="height: 100px;" /></a>
 	<hr />
 	<section>
 		<!--

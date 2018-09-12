@@ -28,4 +28,8 @@ public interface AuthService {
 
 	String saveCustomerWithImage(CustomerVO entity);
 
+	List<CustomerVO> findCustomerWithImage();
+
+	byte[] loadImageByUsername(String username);
+
 }

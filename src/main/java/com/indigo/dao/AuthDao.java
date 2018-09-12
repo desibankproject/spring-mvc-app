@@ -28,4 +28,8 @@ public interface AuthDao {
 
 	String saveCustomerWithImage(CustomerEntity entity);
 
+	List<CustomerEntity> findCustomerWithImage();
+
+	byte[] loadImageByUsername(String username);
+
 }

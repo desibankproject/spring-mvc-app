@@ -79,6 +79,27 @@ public class AuthDaoImpl implements AuthDao {
 		return customerEntities;
 	}
 	
+	/**
+	 * Code as per spring jdbc
+	 * @param entity
+	 * @return
+	 */
+	@Override
+	public List<CustomerEntity> findCustomerWithImage(){
+		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
+		String sql="select * from customers_image_tbl";
+		List<CustomerEntity> customerEntities=jdbcTemplate.query(sql,new BeanPropertyRowMapper(CustomerEntity.class));
+		return customerEntities;
+	}
+	
+	@Override
+	public byte[] loadImageByUsername(String username){
+		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
+		String sql="select photo from customers_image_tbl where username=?";
+		byte[] image=jdbcTemplate.queryForObject(sql,new Object[]{username}, byte[].class);
+		return image;
+	}
+	
 	
 	/**
 	 * Code as per spring jdbc
