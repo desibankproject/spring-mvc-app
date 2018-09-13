@@ -49,25 +49,6 @@
 	<img src="${pageContext.request.contextPath}/img/cust-registration.png" style="height: 100px;" />
 	<hr />
 	<section>
-		<!--
-		http://localhost:8080/spring-kb/ check
-		 -->	
-		 <p>
-		 Search  : <input type="text" class="form-control" id="searchstring" name="searchstring" value="${param.searchstring}">
-		 <button type="button" class="btn btn-danger" id="gogogo">Go</button>
-		  <button type="button" class="btn btn-danger" id="clearSearch">Clear Search</button>
-	<%-- 	 <a href="${pageContext.request.contextPath}/register"><button type="button" class="btn btn-primary">Add Customer</button></a> --%>
-		 <a href="javascript:openCustomerPopup();"><button type="button" class="btn btn-primary">Add Customer Popup</button></a>
-		 &nbsp;&nbsp;&nbsp;&nbsp;
-		<img src="${pageContext.request.contextPath}/img/filter.png"> 
-		  <select  name="filterResult" id="filterResult" style="width: 300px;display: inline;margin-left: 20px;" class="form-control">
-		  	<option ${param.oowowow=='All'?'selected':''}>All</option>
-					<option ${param.oowowow=='Customer'?'selected':''}>Customer</option>
-					<option ${param.oowowow=='Employee'?'selected':''}>Employee</option>
-					<option ${param.oowowow=='Admin'?'selected':''}>Admin</option>
-				</select>
-		 </p>          
-		   
 	<h4>${message}</h4>	   
   <table class="table table-bordered">
     <thead>
