@@ -12,7 +12,17 @@ public class CustomerVO {
 	private String photo;
 	private Date doe;
 	private byte[] image;
+	private String bimage;
 	
+	
+	public String getBimage() {
+		return bimage;
+	}
+
+	public void setBimage(String bimage) {
+		this.bimage = bimage;
+	}
+
 	public byte[] getImage() {
 		return image;
 	}

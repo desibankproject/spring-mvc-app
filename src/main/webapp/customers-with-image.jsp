@@ -71,7 +71,11 @@
         <td>${item.email}</td>
            <td>${item.role}</td>
             <td>${item.gender}</td>
-        <td><img src="${pageContext.request.contextPath}/load-image?username=${item.username}" style="height: 60px;"/></td>
+        <td>
+        <img src="${pageContext.request.contextPath}/load-image?username=${item.username}" style="height: 60px;"/>
+        <img src="${pageContext.request.contextPath}/bload-image?username=${item.username}" style="height: 60px;"/>
+         <img src="data:image/png;base64,${item.bimage}" style="height: 60px;"/>
+        </td>
         <td>${item.doe}</td>
         <td>
         <a href="${pageContext.request.contextPath}/deleteCustomer?pusername=${item.username}">	

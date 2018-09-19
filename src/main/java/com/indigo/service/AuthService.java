@@ -32,4 +32,6 @@ public interface AuthService {
 
 	byte[] loadImageByUsername(String username);
 
+	String loadImageByUsernameBinary(String username);
+
 }

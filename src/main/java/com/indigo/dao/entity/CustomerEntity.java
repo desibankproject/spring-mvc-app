@@ -9,8 +9,17 @@ public class CustomerEntity {
 	private String gender;
 	private String email;
 	private String photo;
+	private String bimage;
 	private byte[] image;
 	
+	public String getBimage() {
+		return bimage;
+	}
+
+	public void setBimage(String bimage) {
+		this.bimage = bimage;
+	}
+
 	public byte[] getImage() {
 		return image;
 	}

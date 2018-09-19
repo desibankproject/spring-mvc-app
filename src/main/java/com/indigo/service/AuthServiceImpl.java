@@ -81,6 +81,11 @@ public class AuthServiceImpl implements AuthService {
 		return authDao.loadImageByUsername(username);
 	}
 	
+	@Override
+	public String loadImageByUsernameBinary(String username){
+		return authDao.loadImageByUsernameBinary(username);
+	}
+	
 	
 	/**
 	 * Code as per spring jdbc
@@ -137,6 +142,8 @@ public class AuthServiceImpl implements AuthService {
 		String result=authDao.saveCustomerWithImage(entity);
 		return result;
 	}
+	
+	
 	
 	@Override
 	@Transactional

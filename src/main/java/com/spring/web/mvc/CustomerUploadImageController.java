@@ -22,12 +22,33 @@ import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import com.indigo.service.AuthService;
 import com.spring.web.mvc.vo.CustomerVO;
 
+import sun.misc.BASE64Decoder;
+
 @Controller
 public class CustomerUploadImageController {
 
 	@Autowired
 	@Qualifier("AuthServiceImpl")
 	private AuthService authService;
+	
+	
+	@GetMapping("/bload-image")
+	public void bloadImage(@RequestParam("username") String username,HttpServletResponse response) throws IOException {
+		String imageString=authService.loadImageByUsernameBinary(username);
+		 byte[] imageByte={};
+	        try {
+	            BASE64Decoder decoder = new BASE64Decoder();
+	            imageByte = decoder.decodeBuffer(imageString);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+		response.setContentType("image/png");
+		ServletOutputStream outputStream=response.getOutputStream();
+		if(imageByte!=null){
+			outputStream.write(imageByte);	
+			outputStream.flush();
+		}
+	}
 	
 	//SPECIAL CODE WE ARE WRITTING HERE!@!!!!!!!!!!!!!!
 	@GetMapping("/load-image")
@@ -63,7 +84,7 @@ public class CustomerUploadImageController {
 		authService.saveCustomerWithImage(customerVO);
 		// List<CustomerEntity> customerList=authDao.findCustomer();
 		// model.addAttribute("customerList", customerList);
-		return "redirect:/customers?message=Customer is registered into the database successfully!";
+		return "redirect:/customers-with-image?message=Customer is registered into the database successfully!";
 	}
 
 	// It converts your upload file into byte array form after it

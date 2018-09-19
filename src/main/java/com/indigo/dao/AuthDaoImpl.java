@@ -20,6 +20,8 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 import com.indigo.dao.entity.CustomerEntity;
 import com.indigo.dao.entity.LoginEntity;
 
+import sun.misc.BASE64Encoder;
+
 //Dao means it contains database programming logic
 //When ever you design business layer then we should design  interface also
 
@@ -97,6 +99,14 @@ public class AuthDaoImpl implements AuthDao {
 		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
 		String sql="select photo from customers_image_tbl where username=?";
 		byte[] image=jdbcTemplate.queryForObject(sql,new Object[]{username}, byte[].class);
+		return image;
+	}
+	
+	@Override
+	public String loadImageByUsernameBinary(String username){
+		//JdbcTemplate jdbcTemplate=new JdbcTemplate(pdataSource);
+		String sql="select bimage from customers_image_tbl where username=?";
+		String image=jdbcTemplate.queryForObject(sql,new Object[]{username}, String.class);
 		return image;
 	}
 	
@@ -180,12 +190,15 @@ public class AuthDaoImpl implements AuthDao {
 		//Special code for saving image into the database!
         LobHandler lobHandler = new DefaultLobHandler();
         SqlLobValue sqlLobValue=new SqlLobValue(entity.getImage(),lobHandler);
-		String sql="insert into customers_image_tbl(username,password,email,role,gender,photo,doe) values(?,?,?,?,?,?,?)";
+		String sql="insert into customers_image_tbl(username,password,email,role,gender,photo,doe,bimage) values(?,?,?,?,?,?,?,?)";
 		Timestamp doe=new Timestamp(new Date().getTime());
-		Object data[]=new Object[]{entity.getUsername(), entity.getPassword(),entity.getEmail(),entity.getRole(),entity.getGender(),sqlLobValue,doe};
+		 BASE64Encoder encoder = new BASE64Encoder();
+         String imageString = encoder.encode(entity.getImage());
+
+		Object data[]=new Object[]{entity.getUsername(), entity.getPassword(),entity.getEmail(),entity.getRole(),entity.getGender(),sqlLobValue,doe,imageString};
         int[] dataType=new int[] { Types.VARCHAR, Types.VARCHAR,
                 Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
-                Types.BLOB,Types.TIMESTAMP };
+                Types.BLOB,Types.TIMESTAMP,Types.VARBINARY };
         //This is special code to persist image into database
 		jdbcTemplate.update(sql,data,dataType);
 		return "success";

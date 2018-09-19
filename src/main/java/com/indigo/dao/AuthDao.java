@@ -32,4 +32,6 @@ public interface AuthDao {
 
 	byte[] loadImageByUsername(String username);
 
+	String loadImageByUsernameBinary(String username);
+
 }
