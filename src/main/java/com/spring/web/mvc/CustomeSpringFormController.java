@@ -3,6 +3,8 @@ package com.spring.web.mvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -41,7 +43,8 @@ public class CustomeSpringFormController {
 	
 	
 	@ModelAttribute("genderList")
-	public List<String> populateGender(){
+	public List<String> populateGender(HttpSession session){
+		System.out.println("(#(#(##(session session session =  "+session);
 		List<String> genderList = new ArrayList<String>();
 		genderList.add("Male");
 		genderList.add("Female");
